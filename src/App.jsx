@@ -7,13 +7,13 @@ export default function ZenderApp() {
   const [showQuote, setShowQuote] = useState(false);
 
   const emotions = [
-    { id: 'happy', label: 'Happy', emoji: '😊', bgColor: 'bg-yellow-50' },
-    { id: 'sad', label: 'Sad', emoji: '😢', bgColor: 'bg-blue-50' },
-    { id: 'frustrated', label: 'Frustrated', emoji: '😤', bgColor: 'bg-orange-50' },
-    { id: 'overwhelmed', label: 'Overwhelmed', emoji: '😫', bgColor: 'bg-teal-50' },
-    { id: 'zeromotivation', label: 'Zero Motivation', emoji: '🌀', bgColor: 'bg-purple-50' },
-    { id: 'rejected', label: 'Rejected', emoji: '😔', bgColor: 'bg-rose-50' },
-    { id: 'ghosted', label: 'Ghosted', emoji: '💔', bgColor: 'bg-violet-50' },
+    { id: 'happy', label: 'Happy', emoji: '😊', bgColor: 'bg-yellow-50', selectedBg: 'bg-yellow-100', btnColor: 'bg-yellow-100 hover:bg-yellow-200' },
+    { id: 'sad', label: 'Sad', emoji: '😢', bgColor: 'bg-blue-50', selectedBg: 'bg-blue-100', btnColor: 'bg-blue-100 hover:bg-blue-200' },
+    { id: 'frustrated', label: 'Frustrated', emoji: '😤', bgColor: 'bg-orange-50', selectedBg: 'bg-orange-100', btnColor: 'bg-orange-100 hover:bg-orange-200' },
+    { id: 'overwhelmed', label: 'Overwhelmed', emoji: '😫', bgColor: 'bg-teal-50', selectedBg: 'bg-teal-100', btnColor: 'bg-teal-100 hover:bg-teal-200' },
+    { id: 'zeromotivation', label: 'Zero Motivation', emoji: '🌀', bgColor: 'bg-purple-50', selectedBg: 'bg-purple-100', btnColor: 'bg-purple-100 hover:bg-purple-200' },
+    { id: 'rejected', label: 'Rejected', emoji: '😔', bgColor: 'bg-rose-50', selectedBg: 'bg-rose-100', btnColor: 'bg-rose-100 hover:bg-rose-200' },
+    { id: 'ghosted', label: 'Ghosted', emoji: '💔', bgColor: 'bg-violet-50', selectedBg: 'bg-violet-100', btnColor: 'bg-violet-100 hover:bg-violet-200' },
   ];
 
   const quotes = {
@@ -93,6 +93,8 @@ export default function ZenderApp() {
     setShowQuote(false);
   };
 
+  const selectedEmotionData = emotions.find(e => e.id === selectedEmotion);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-8">
       <div className="w-full max-w-6xl">
@@ -126,7 +128,7 @@ export default function ZenderApp() {
                       onClick={() => setSelectedEmotion(emotion.id)}
                       className={`group relative p-5 rounded-xl transition-all duration-200 ${
                         selectedEmotion === emotion.id
-                          ? 'bg-gray-100 scale-105'
+                          ? `${emotion.selectedBg} scale-105 shadow-md`
                           : emotion.bgColor
                       }`}
                     >
@@ -158,8 +160,8 @@ export default function ZenderApp() {
                 onClick={generateQuote}
                 disabled={!selectedEmotion}
                 className={`px-8 py-3 rounded-full transition-all duration-200 flex flex-col items-center ${
-                  selectedEmotion
-                    ? 'bg-gray-100 hover:bg-gray-200'
+                  selectedEmotion && selectedEmotionData
+                    ? selectedEmotionData.btnColor
                     : 'bg-gray-100 cursor-not-allowed opacity-50'
                 }`}
               >
