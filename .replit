@@ -1,0 +1,22 @@
+
+entrypoint = "src/main.jsx"
+modules = ["nodejs-20:v8-20230920-bd784b9"]
+
+[nix]
+channel = "stable-23_05"
+
+[deployment]
+run = ["npm", "run", "build", "&&", "npx", "vite", "preview", "--host", "0.0.0.0", "--port", "5000"]
+deploymentTarget = "cloudrun"
+
+[workflows]
+runButton = "Run Dev Server"
+
+[[workflows.workflow]]
+name = "Run Dev Server"
+author = 47316322
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev -- --host 0.0.0.0 --port 5000"
